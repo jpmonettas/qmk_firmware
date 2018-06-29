@@ -12,7 +12,8 @@ enum{
   TD_W_VEC,
   TD_R_MAP,
   TD_I_PIPE,
-  TD_RET_DQ
+  TD_RET_DQ,
+  TD_Q_BQ
 };
 
 enum custom_keycodes {
@@ -25,7 +26,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_E_LIS] = ACTION_TAP_DANCE_DOUBLE(KC_E,KC_LPRN),
   [TD_R_MAP] = ACTION_TAP_DANCE_DOUBLE(KC_R,KC_LCBR),
   [TD_I_PIPE] = ACTION_TAP_DANCE_DOUBLE(KC_I,KC_PIPE),
-  [TD_RET_DQ] = ACTION_TAP_DANCE_DOUBLE(KC_ENT,KC_DOUBLE_QUOTE)
+  [TD_RET_DQ] = ACTION_TAP_DANCE_DOUBLE(KC_ENT,KC_DOUBLE_QUOTE),
+  [TD_Q_BQ] = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE,KC_GRAVE)
 };
 
 enum macros {
@@ -45,10 +47,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Tab    |   Q  |   W/[|   E/( |  R/{|   T  | MT   |           |  MU  |   Y  |   U  |   I/||   O  |   P  |   Back |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | LCtrl  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / : | Ret/"  |
- * |--------+------+------+------+------+------| ME   |           | '    |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------| ME   |           | '/`  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  | /    | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Win   |      |      | Win | Alt  |                                       |  ~L1  |      |      |      | _    |
+ *   |Win   |      |      | Win | LAlt  |                                       |  ~L1  | RAlt|      |      | ~    |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |  Home| End  |       |   *  |   +    |
@@ -74,8 +76,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         M(ALT_US),     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
                         M(CTRL_US),    KC_Y,   KC_U,  TD(TD_I_PIPE),   KC_O,   KC_P,             KC_BSPACE,
                         KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN ,TD(TD_RET_DQ),
-                        KC_QUOT,KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLSH ,   KC_RSFT,
-                        MO(1) ,         KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,
+                        TD(TD_Q_BQ),KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLSH ,   KC_RSFT,
+                        MO(1) ,         KC_RALT, KC_TRNS,KC_TRNS,KC_TILDE,
              KC_ASTERISK,        KC_PLUS,
              KC_SLASH,
              KC_EQL,KC_MINS, KC_BSPACE
@@ -237,7 +239,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case PASSWORD:
     if (record->event.pressed) {
-      SEND_STRING ("Tw|$7ed7");
+      SEND_STRING ("");
     }
     return false;
     break;
