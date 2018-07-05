@@ -8,10 +8,7 @@
 #define MDIA 2 // media keys
 
 enum{
-  TD_E_LIS=0,
-  TD_W_VEC,
-  TD_R_MAP,
-  TD_I_PIPE,
+  TD_I_PIPE=0,
   TD_RET_DQ,
   TD_Q_BQ
 };
@@ -22,9 +19,6 @@ enum custom_keycodes {
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_W_VEC] = ACTION_TAP_DANCE_DOUBLE(KC_W,KC_LBRC),
-  [TD_E_LIS] = ACTION_TAP_DANCE_DOUBLE(KC_E,KC_LPRN),
-  [TD_R_MAP] = ACTION_TAP_DANCE_DOUBLE(KC_R,KC_LCBR),
   [TD_I_PIPE] = ACTION_TAP_DANCE_DOUBLE(KC_I,KC_PIPE),
   [TD_RET_DQ] = ACTION_TAP_DANCE_DOUBLE(KC_ENT,KC_DOUBLE_QUOTE),
   [TD_Q_BQ] = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE,KC_GRAVE)
@@ -44,13 +38,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   ESC  |   1  |   2  |   3  |   4  |   5  | MC   |           |  MR  |   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W/[|   E/( |  R/{|   T  | MT   |           |  MU  |   Y  |   U  |   I/||   O  |   P  |   Back |
+ * | Tab    |   Q  |   W  |   E  |  R   |   T  | MT   |           |  MU  |   Y  |   U  |   I/||   O  |   P  |   Back |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | LCtrl  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / : | Ret/"  |
  * |--------+------+------+------+------+------| ME   |           | '/`  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  | /    | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Win   |      |      | Win | LAlt  |                                       |  ~L1  | RAlt|      |      | ~    |
+ *   |Win   |      |      | Win | LAlt  |                                       |  ~L1  | RAlt|      |  \   | ~    |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |  Home| End  |       |   *  |   +    |
@@ -65,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
                         KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   M(WIN_C),
-                        KC_TAB,         KC_Q,         TD(TD_W_VEC),  TD(TD_E_LIS),   TD(TD_R_MAP),   KC_T,   M(WIN_T),
+                        KC_TAB,         KC_Q,         KC_W,  KC_E,   KC_R,   KC_T,   M(WIN_T),
                         KC_LCTRL,       KC_A,         KC_S,  KC_D,   KC_F,   KC_G,
                         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B, M(WIN_X),
                         KC_LWIN ,       KC_TRNS,      KC_TRNS,  KC_LWIN,KC_LALT,
@@ -75,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
                         M(ALT_US),     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
                         M(CTRL_US),    KC_Y,   KC_U,  TD(TD_I_PIPE),   KC_O,   KC_P,             KC_BSPACE,
-                        KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN ,TD(TD_RET_DQ),
+                        KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN , KC_ENTER,
                         TD(TD_Q_BQ),KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLSH ,   KC_RSFT,
-                        MO(1) ,         KC_RALT, KC_TRNS,KC_TRNS,KC_TILDE,
+                        MO(1) ,         KC_RALT, KC_DOUBLE_QUOTE,KC_BSLASH,KC_TILDE,
              KC_ASTERISK,        KC_PLUS,
              KC_SLASH,
              KC_EQL,KC_MINS, KC_BSPACE
@@ -89,9 +83,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
  * |Pass     |      |      |      |      |      |      |           |      |      |      |   U  |      |      |   F12  |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |------|           |------|      |   L  |   D  |  R   |      |        |
+ * |         |      | [    |  (    |  {  |      |------|           |------|      |   L  |   D  |  R   |      |        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |         |      | ]    |  )   |   }  |      |      |           |      |      |      |      |      |      |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |       |      |      |      |      |                                       |      |      |      |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
@@ -107,9 +101,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMB] = LAYOUT_ergodox(
        // left hand
        EMAIL,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
-       PASSWORD,KC_TRNS,KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       PASSWORD,KC_TRNS,KC_TRNS, KC_TRNS,KC_TRNS, KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_LBRC,KC_LPRN,KC_LCBR,  KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_RBRC,KC_RPRN,KC_RCBR,   KC_TRNS,KC_TRNS,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
@@ -117,8 +111,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // right hand
        KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
        KC_TRNS, KC_TRNS,  KC_TRNS,  KC_UP,   KC_TRNS,   KC_TRNS, KC_F12,
-       KC_TRNS, KC_LEFT,  KC_DOWN,   KC_RIGHT,   KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_DOWN,   KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,
+       KC_RPRN, KC_TRNS,  KC_DOWN,   KC_RIGHT,   KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,   KC_DOWN,    KC_TRNS,    KC_TRNS, KC_TRNS,
                          KC_TRNS,KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
